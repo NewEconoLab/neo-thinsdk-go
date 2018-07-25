@@ -437,7 +437,7 @@ func CreateContractTransaction(params *CreateSignParams) (string, bool) {
 	}
 
 	value := params.Value
-	toAddress := params.From
+	toAddress := params.To
 	if sum < value {
 		return "", false
 	}
@@ -523,7 +523,7 @@ func CreateInvocationTransaction(params *CreateSignParams) (string, bool) {
 		sum += params.Utxos[i].Value
 	}
 
-	toAddress := params.From
+	toAddress := params.To
 	if sum <= 0 {
 		return "", false
 	}
