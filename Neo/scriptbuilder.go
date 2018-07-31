@@ -40,6 +40,9 @@ func (sb *ScriptBuilder) EmitJump(opcode byte, offset int16) {
 	if opcode != OpCode.JMP && opcode != OpCode.JMPIF && opcode != OpCode.JMPIFNOT && opcode != OpCode.CALL {
 		panic("runtime error: opcode error")
 	}
+	var buf bytes.Buffer
+	utils.WriteUint16(&buf, uint16(offset))
+	sb.Emit(opcode, buf.Bytes())
 }
 
 func (sb *ScriptBuilder) EmitPushNumber(number big.Int)  {
