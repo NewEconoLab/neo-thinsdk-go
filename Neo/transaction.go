@@ -431,7 +431,8 @@ func CreateContractTransaction(params *CreateSignParams) (string, bool) {
 		tx.inputs = make([]TransactionInput, size)
 	}
 	for i := 0; i < size; i++ {
-		tx.inputs[i].hash, _ = utils.ToBytes(params.Utxos[i].Hash)
+		txid, _ := utils.ToBytes(params.Utxos[i].Hash)
+		tx.inputs[i].hash = utils.BytesReverse(txid)
 		tx.inputs[i].index = params.Utxos[i].N
 		sum += params.Utxos[i].Value
 	}
@@ -518,7 +519,8 @@ func CreateInvocationTransaction(params *CreateSignParams) (string, bool) {
 		tx.inputs = make([]TransactionInput, size)
 	}
 	for i := 0; i < size; i++ {
-		tx.inputs[i].hash, _ = utils.ToBytes(params.Utxos[i].Hash)
+		txid, _ := utils.ToBytes(params.Utxos[i].Hash)
+		tx.inputs[i].hash = utils.BytesReverse(txid)
 		tx.inputs[i].index = params.Utxos[i].N
 		sum += params.Utxos[i].Value
 	}
